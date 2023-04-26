@@ -26,9 +26,8 @@ class gv::GifView : public Gtk::DrawingArea
 
         // Functions that set the Pixbuf's properties
         void setResizeAutomatically(bool resize);
-        void setMaxWidth(int width);
-        void setMaxHeight(int height);
         void setMaxSize(int width, int height);
+        void setMinSize(int width, int height);
 
         // Start & Stop the animation
         void start();
@@ -46,7 +45,7 @@ class gv::GifView : public Gtk::DrawingArea
         Glib::RefPtr<Gdk::PixbufAnimation> m_animation;
         Glib::RefPtr<Gdk::PixbufAnimationIter> m_iter;
         Glib::RefPtr<Gdk::Pixbuf> m_pixbuf;
-        int m_max_width = -1, m_max_height = -1;
+        int m_max_width = -1, m_max_height = -1, m_min_width = -1, m_min_height = -1;
         bool m_loaded = false;
         bool m_resize = false;
         int m_delay = 0;

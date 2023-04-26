@@ -11,8 +11,8 @@ int main()
     gifview.start();
     gifview.setResizeAutomatically(true);
 
-    gifview.setMaxHeight(200);
-    gifview.setMaxWidth(200);
+    gifview.setMinSize(100, 100);
+    gifview.setMaxSize(200, 200);
 
     win.add(gifview);
     win.show_all();

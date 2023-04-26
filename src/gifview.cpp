@@ -233,26 +233,6 @@ void gv::GifView::setResizeAutomatically(bool resize)
 }
 
 /**
-* \brief Set the maximum width of the GIF.
-* \details This function sets the maximum width of the pixbuf.
-* \param width The maximum width of the pixbuf.
-*/
-void gv::GifView::setMaxWidth(int width)
-{
-    m_max_width = width;
-}
-
-/**
-* \brief Set the maximum height of the GIF.
-* \details This function sets the maximum height of the pixbuf.
-* \param height The maximum height of the pixbuf.
-*/
-void gv::GifView::setMaxHeight(int height)
-{
-    m_max_height = height;
-}
-
-/**
 * \brief Set the maximum size of the GIF
 * \details This function sets the maximum size of the pixbuf
 * \param width The maximum width.
@@ -260,6 +240,17 @@ void gv::GifView::setMaxHeight(int height)
 */
 void gv::GifView::setMaxSize(int width, int height)
 {
-    setMaxWidth(width);
-    setMaxHeight(height);
+    m_max_width = width;
+    m_max_height = height;
+}
+
+/**
+* \brief Set the minimum size of the GIF.
+* \details This function sets the minimum size of the pixbuf.
+* \param width The minimum width of the pixbuf.
+* \param height The minimum height of the pixbuf.
+*/
+void gv::GifView::setMinSize(int width, int height)
+{
+    set_size_request(width, height);
 }
