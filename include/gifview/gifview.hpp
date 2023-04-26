@@ -1,3 +1,4 @@
+#include "gdkmm/pixbufanimation.h"
 #include <iostream>
 #include <gtkmm-3.0/gtkmm.h>
 namespace gv
@@ -45,6 +46,7 @@ class gv::GifView : public Gtk::DrawingArea
         Glib::RefPtr<Gdk::PixbufAnimationIter> m_iter;
         Glib::RefPtr<Gdk::Pixbuf> m_pixbuf;
         int m_max_width = -1, m_max_height = -1;
+        bool m_loaded = false;
         bool m_resize = false;
         int m_delay = 0;
         bool m_loop = true;
