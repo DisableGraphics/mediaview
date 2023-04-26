@@ -6,7 +6,7 @@
 */
 gv::GifView::GifView()
 {
-    
+
 }
 
 /**
@@ -121,9 +121,12 @@ bool gv::GifView::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
     Gtk::Allocation allocation = get_allocation();
     int width = allocation.get_width();
     int height = allocation.get_height();
-    Gdk::Cairo::set_source_pixbuf(cr, m_pixbuf, ((double)width - m_pixbuf->get_width()) / 2,
-        ((double)height - m_pixbuf->get_height()) / 2);
-    cr->paint();
+    if(m_pixbuf)
+    {
+        Gdk::Cairo::set_source_pixbuf(cr, m_pixbuf, ((double)width - m_pixbuf->get_width()) / 2,
+            ((double)height - m_pixbuf->get_height()) / 2);
+        cr->paint();
+    }
     return true;
 }
 
