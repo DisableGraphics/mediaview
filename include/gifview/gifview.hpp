@@ -29,9 +29,15 @@ class gv::GifView : public Gtk::DrawingArea
         void setMaxSize(int width, int height);
         void setMinSize(int width, int height);
 
+        // Functions that set the cache's properties
+        void setCacheEnabled(bool enabled);
+
         // Start & Stop the animation
         void start();
         void stop();
+
+        // Getters
+        int getDelay() const;
     private:
         // Events that handle the Pixbuf
         bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr) override;
@@ -45,11 +51,17 @@ class gv::GifView : public Gtk::DrawingArea
         Glib::RefPtr<Gdk::PixbufAnimation> m_animation;
         Glib::RefPtr<Gdk::PixbufAnimationIter> m_iter;
         Glib::RefPtr<Gdk::Pixbuf> m_pixbuf;
+        // Suboptimal performance having to resize the pixbuf every frame
+        // has left me with no choice but to use a vector of pixbufs as cache
+        std::vector<Glib::RefPtr<Gdk::Pixbuf>> m_frames_cache;
         int m_max_width = -1, m_max_height = -1, m_min_width = -1, m_min_height = -1;
         bool m_loaded = false;
         bool m_resize = false;
         int m_delay = 0;
         bool m_loop = true;
         bool m_playing = false;
+        bool m_finished_cache = false;
+        bool m_cache_enabled = true;
+        int m_curr_frame = 0;
         sigc::connection m_connection;
 };

@@ -60,6 +60,8 @@ void gv::GifView::setGif(const std::string& filename)
 */
 void gv::GifView::setGif(const Glib::RefPtr<Gdk::PixbufAnimation> animation)
 {
+    m_curr_frame = 0;
+    m_finished_cache = false;
     m_animation = animation;
     m_iter = m_animation->get_iter(nullptr);
     m_pixbuf = m_iter->get_pixbuf();
@@ -147,20 +149,34 @@ bool gv::GifView::on_timeout()
     {
         if (m_iter->advance())
         {
-            m_pixbuf = m_iter->get_pixbuf();
+            if(!m_finished_cache || !m_cache_enabled)
+            {
+                m_pixbuf = m_iter->get_pixbuf();
+            }
+            else
+            {
+                m_pixbuf = m_frames_cache[m_curr_frame];
+            }
+            
+            m_curr_frame++;
             m_delay = m_iter->get_delay_time();
-            if(m_resize)
+            
+            if(m_resize && !m_finished_cache)
                 resize_pixbuf();
+            if(m_cache_enabled)
+            {
+                m_frames_cache.push_back(m_pixbuf);
+            }
             queue_draw();
             return true;
         }
         else if (m_loop)
         {
+            m_finished_cache = true;
+            m_curr_frame = 0;
             m_iter.reset();
-            m_pixbuf = m_iter->get_pixbuf();
+            m_pixbuf = m_cache_enabled ? m_frames_cache[m_curr_frame] : m_iter->get_pixbuf();
             m_delay = m_iter->get_delay_time();
-            if(m_resize)
-                resize_pixbuf();
             queue_draw();
             return true;
         }
@@ -187,7 +203,6 @@ bool gv::GifView::on_timeout()
 void gv::GifView::resize_pixbuf(int width, int height, bool preserve_aspect_ratio)
 {
     m_pixbuf = m_pixbuf->scale_simple(width, height, Gdk::INTERP_BILINEAR);
-    queue_draw();
 }
 
 /**
@@ -253,4 +268,14 @@ void gv::GifView::setMaxSize(int width, int height)
 void gv::GifView::setMinSize(int width, int height)
 {
     set_size_request(width, height);
+}
+
+/**
+* \brief Get delay of GIF
+* \details This function gets the delay of the animation.
+* \return The delay of the animation.
+*/
+int gv::GifView::getDelay() const
+{
+    return m_delay;
 }
