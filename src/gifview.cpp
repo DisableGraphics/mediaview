@@ -119,15 +119,9 @@ bool gv::GifView::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
     int height = allocation.get_height();
     if(m_pixbuf)
     {
-        try 
-        {
-            Gdk::Cairo::set_source_pixbuf(cr, m_pixbuf, ((double)width - m_pixbuf->get_width()) / 2,
-                ((double)height - m_pixbuf->get_height()) / 2);
-        }
-        catch (const Gdk::PixbufError& e)
-        {
-            std::cerr << "[ERROR] " << e.what() << std::endl;
-        }
+        
+        Gdk::Cairo::set_source_pixbuf(cr, m_pixbuf, ((double)width - m_pixbuf->get_width()) / 2,
+            ((double)height - m_pixbuf->get_height()) / 2);
         cr->stroke();
         cr->paint();
     }
@@ -145,7 +139,12 @@ bool gv::GifView::on_timeout()
     {
         if (m_iter->advance())
         {
-            m_pixbuf = m_iter->get_pixbuf();
+            try 
+            {
+                m_pixbuf = m_iter->get_pixbuf();
+            } catch(Glib::Error& e) {
+                std::cerr << e.what() << std::endl;
+            }
             m_delay = m_iter->get_delay_time();
             if(m_resize)
             {
