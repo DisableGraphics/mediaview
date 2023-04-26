@@ -99,6 +99,7 @@ void gv::GifView::setLoop(bool loop)
 */
 void gv::GifView::start()
 {
+    m_connection.disconnect();
     if (!m_playing && m_loaded)
     {
         m_playing = true;
