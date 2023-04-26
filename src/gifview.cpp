@@ -60,14 +60,10 @@ void gv::GifView::setGif(const std::string& filename)
 */
 void gv::GifView::setGif(const Glib::RefPtr<Gdk::PixbufAnimation> animation)
 {
-    m_frames_cache.clear();
-    m_curr_frame = 0;
-    m_finished_cache = false;
     m_animation = animation;
-    m_iter = m_animation->get_iter(nullptr);
+    m_iter = m_animation->get_iter(NULL);
     m_pixbuf = m_iter->get_pixbuf();
     m_delay = m_iter->get_delay_time();
-    m_loop = m_iter->on_currently_loading_frame();
     m_playing = false;
     m_loaded = true;
     queue_draw();
@@ -81,16 +77,6 @@ void gv::GifView::setGif(const Glib::RefPtr<Gdk::PixbufAnimation> animation)
 void gv::GifView::setDelay(int delay)
 {
     m_delay = delay;
-}
-
-/**
-* \brief Set the loop
-* \details This function sets whether the GIF should loop.
-* \param loop Whether the GIF should loop.
-*/
-void gv::GifView::setLoop(bool loop)
-{
-    m_loop = loop;
 }
 
 /**
@@ -113,7 +99,6 @@ void gv::GifView::start()
 */
 void gv::GifView::stop()
 {
-    m_frames_cache.clear();
     if (m_playing && m_loaded)
     {
         m_playing = false;
@@ -136,6 +121,7 @@ bool gv::GifView::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
     {
         Gdk::Cairo::set_source_pixbuf(cr, m_pixbuf, ((double)width - m_pixbuf->get_width()) / 2,
             ((double)height - m_pixbuf->get_height()) / 2);
+        cr->stroke();
         cr->paint();
     }
     return true;
@@ -152,43 +138,18 @@ bool gv::GifView::on_timeout()
     {
         if (m_iter->advance())
         {
-            if(!m_finished_cache || !m_cache_enabled)
-            {
-                m_pixbuf = m_iter->get_pixbuf();
-            }
-            else
-            {
-                m_pixbuf = m_frames_cache[m_curr_frame];
-            }
-            
-            m_curr_frame++;
+            m_pixbuf = m_iter->get_pixbuf();
             m_delay = m_iter->get_delay_time();
-            
-            if(m_resize && !m_finished_cache)
+            if(m_resize)
+            {
                 resize_pixbuf();
-            if(m_cache_enabled)
-            {
-                m_frames_cache.push_back(m_pixbuf);
             }
-            queue_draw();
-            return true;
-        }
-        else if (m_loop)
-        {
-            m_finished_cache = true;
-            m_curr_frame = 0;
-            m_iter.reset();
-            m_pixbuf = m_cache_enabled ? m_frames_cache[m_curr_frame] : m_iter->get_pixbuf();
-            m_delay = m_iter->get_delay_time();
             queue_draw();
             return true;
         }
         else
         {
-            m_playing = false;
-            m_connection.disconnect();
-            m_frames_cache.clear();
-            return false;
+            return true;
         }
     }
     else

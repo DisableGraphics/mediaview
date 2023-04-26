@@ -7,7 +7,6 @@ int main()
     gv::GifView gifview;
 
     gifview.setGif("demo.gif");
-    gifview.setLoop(true);
     gifview.start();
     gifview.setResizeAutomatically(true);
 
