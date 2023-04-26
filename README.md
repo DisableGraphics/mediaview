@@ -19,7 +19,7 @@ sudo dnf install gtkmm30-devel
 ```
 # Compiling the library
 ```
-git clone https://github.com/DisableGraphics/GifView.git
+git clone https://github.com/DisableGraphics/GifView.git gifview
 cd GifView
 meson setup builddir
 cd builddir
@@ -27,6 +27,7 @@ meson compile # You can change it for "ninja" if your meson doesn't have the com
 ```
 # Usage
 * Since this library uses meson as its build system, you can use the subproject feature to import it into your project.
+* You'll need to create a folder named "subprojects" in your project's root directory, and place the "gifview" folder inside it.
 ## Importing into a project
 * Create a meson.build file and add this line to it:
 ```
