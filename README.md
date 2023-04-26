@@ -69,5 +69,5 @@ int main()
 }
 ```
 ## Why GifView if I can use Gtk::Image and Gdk::PixbufAnimation?
-* GifView can be resized whereas Gtk::Image cannot
-* Gifview does not need an external pixbuf
+* GifView can be resized easily (with setMaximumSize()) whereas Gtk::Image cannot.
+* Gifview does not need an external pixbuf.
