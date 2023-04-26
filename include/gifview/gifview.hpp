@@ -28,6 +28,7 @@ class gv::GifView : public Gtk::DrawingArea
         void setResizeAutomatically(bool resize);
         void setMaxWidth(int width);
         void setMaxHeight(int height);
+        void setMaxSize(int width, int height);
 
         // Start & Stop the animation
         void start();

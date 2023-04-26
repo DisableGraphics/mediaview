@@ -220,7 +220,7 @@ void gv::GifView::resize_pixbuf(bool preserve_aspect_ratio)
 }
 
 /**
-* \brief Set automatic resize of the pixbuf to fit the widget
+* \brief Set automatic resize of the GIF to fit the widget.
 * \details This function sets whether the pixbuf should be automatically resized to fit the widget.
 * \param resize Whether the pixbuf should be automatically resized to fit the widget.
 */
@@ -230,7 +230,7 @@ void gv::GifView::setResizeAutomatically(bool resize)
 }
 
 /**
-* \brief Set the maximum width of the pixbuf
+* \brief Set the maximum width of the GIF.
 * \details This function sets the maximum width of the pixbuf.
 * \param width The maximum width of the pixbuf.
 */
@@ -240,11 +240,23 @@ void gv::GifView::setMaxWidth(int width)
 }
 
 /**
-* \brief Set the maximum height of the pixbuf
+* \brief Set the maximum height of the GIF.
 * \details This function sets the maximum height of the pixbuf.
 * \param height The maximum height of the pixbuf.
 */
 void gv::GifView::setMaxHeight(int height)
 {
     m_max_height = height;
+}
+
+/**
+* \brief Set the maximum size of the GIF
+* \details This function sets the maximum size of the pixbuf
+* \param width The maximum width.
+* \param height The maximum height.
+*/
+void gv::GifView::setMaxSize(int width, int height)
+{
+    setMaxWidth(width);
+    setMaxHeight(height);
 }
