@@ -60,6 +60,7 @@ void gv::GifView::setGif(const std::string& filename)
 */
 void gv::GifView::setGif(const Glib::RefPtr<Gdk::PixbufAnimation> animation)
 {
+    m_frames_cache.clear();
     m_curr_frame = 0;
     m_finished_cache = false;
     m_animation = animation;
@@ -111,6 +112,7 @@ void gv::GifView::start()
 */
 void gv::GifView::stop()
 {
+    m_frames_cache.clear();
     if (m_playing && m_loaded)
     {
         m_playing = false;
@@ -183,6 +185,8 @@ bool gv::GifView::on_timeout()
         else
         {
             m_playing = false;
+            m_connection.disconnect();
+            m_frames_cache.clear();
             return false;
         }
     }

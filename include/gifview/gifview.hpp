@@ -57,7 +57,7 @@ class gv::GifView : public Gtk::DrawingArea
         int m_max_width = -1, m_max_height = -1, m_min_width = -1, m_min_height = -1;
         bool m_loaded = false;
         bool m_resize = false;
-        int m_delay = 0;
+        int m_delay = 100;
         bool m_loop = true;
         bool m_playing = false;
         bool m_finished_cache = false;
