@@ -57,8 +57,6 @@ int main()
     //Create the gifview
     gv::GifView gifview = gv::GifView("/path/to/your/gif/file.gif");
 
-    //Set the GIF to loop
-    gifview.setLoop(true);
     //Start the GIF
     gifview.start();
 
