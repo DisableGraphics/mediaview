@@ -10,6 +10,5 @@ int main()
     view.load_file("demo.mp4");
     
     win.show_all();
-    view.play();
     return app->run(win);
 }
