@@ -1,4 +1,4 @@
-#include <gifview/gifview.hpp>
+#include <mediaview/gifview.hpp>
 #include <filesystem>
 
 /**
