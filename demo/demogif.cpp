@@ -1,4 +1,4 @@
-#include <mediaview/gifview.hpp>
+#include <gifview/gifview.hpp>
 
 int main()
 {

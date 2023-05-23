@@ -11,21 +11,11 @@ src_gif = [
     'src/gifview.cpp'
 ]
 
-# Add source files for VideoView
-src_video = [
-    'src/videoview.cpp'
-]
-
 # Add library
 lib_gif = library('gifview', src_gif, include_directories : inc, dependencies : gtkmm_dep)
-video_gif = library('videoview', src_video, include_directories : inc, dependencies : [gtkmm_dep, gstreamer_dep])
 
 # Declare dependencies
 gifview_dep = declare_dependency(link_with : lib_gif, include_directories : inc, dependencies : gtkmm_dep)
-videoview_dep = declare_dependency(link_with : video_gif, include_directories : inc, dependencies : [gtkmm_dep, gstreamer_dep])
-
-mediaview_dep = declare_dependency(link_with : [lib_gif, video_gif], include_directories : inc, dependencies : [gtkmm_dep, gstreamer_dep])
 
 # Demo executable
 demogif = executable('demogif', 'demo/demogif.cpp', dependencies : gifview_dep)
-demovideo = executable('demovideo', 'demo/demovideo.cpp', dependencies : videoview_dep)
