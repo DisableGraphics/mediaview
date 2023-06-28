@@ -1,24 +1,22 @@
-#include <gifview/gifview.hpp>
+#include <mediaview/gifview.hpp>
 #include <filesystem>
 
 /**
 * \brief Construct a new GifView::GifView object
 * \details This is the default constructor for the GifView class.
 */
-gv::GifView::GifView()
+mv::GifView::GifView()
 {
 
 }
 
 /**
 * \brief Construct a new GifView::GifView object
-* \details This is the constructor for the GifView class that takes a filename.
+* \details This is a constructor for the GifView class that takes a filename.
 * \param filename The filename of the GIF to load.
 */
-gv::GifView::GifView(const std::string& filename)
+mv::GifView::GifView(const std::string& filename)
 {
-    if(!std::filesystem::exists(filename))
-        throw std::runtime_error("Can't load file: File " + filename + " does not exist ");
     setGif(filename);
 }
 
@@ -27,7 +25,7 @@ gv::GifView::GifView(const std::string& filename)
 * \details This is the constructor for the GifView class that takes a pixbuf animation.
 * \param animation The pixbuf animation to load.
 */
-gv::GifView::GifView(const Glib::RefPtr<Gdk::PixbufAnimation> animation)
+mv::GifView::GifView(const Glib::RefPtr<Gdk::PixbufAnimation> animation)
 {
     setGif(animation);
 }
@@ -36,7 +34,7 @@ gv::GifView::GifView(const Glib::RefPtr<Gdk::PixbufAnimation> animation)
 * \brief Destroy the GifView::GifView object
 * \details This is the destructor for the GifView class.
 */
-gv::GifView::~GifView()
+mv::GifView::~GifView()
 {
     stop();
 }
@@ -45,8 +43,9 @@ gv::GifView::~GifView()
 * \brief Set the GIF
 * \details This function sets the GIF to display.
 * \param filename The filename of the GIF to load.
+* \throws std::runtime_error If the file does not exist.
 */
-void gv::GifView::setGif(const std::string& filename)
+void mv::GifView::setGif(const std::string& filename)
 {
     if(!std::filesystem::exists(filename))
         throw std::runtime_error("Can't load file: File " + filename + " does not exist ");
@@ -58,7 +57,7 @@ void gv::GifView::setGif(const std::string& filename)
 * \details This function sets the GIF to display.
 * \param animation The pixbuf animation to load.
 */
-void gv::GifView::setGif(const Glib::RefPtr<Gdk::PixbufAnimation> animation)
+void mv::GifView::setGif(const Glib::RefPtr<Gdk::PixbufAnimation> animation)
 {
     m_animation = animation;
     m_iter = m_animation->get_iter(NULL);
@@ -74,7 +73,7 @@ void gv::GifView::setGif(const Glib::RefPtr<Gdk::PixbufAnimation> animation)
 * \details This function sets the delay between frames.
 * \param delay The delay between frames.
 */
-void gv::GifView::setDelay(int delay)
+void mv::GifView::setDelay(int delay)
 {
     m_delay = delay;
 }
@@ -83,13 +82,13 @@ void gv::GifView::setDelay(int delay)
 * \brief Start the GIF
 * \details This function starts the GIF.
 */
-void gv::GifView::start()
+void mv::GifView::start()
 {
     m_connection.disconnect();
     if (!m_playing && m_loaded)
     {
         m_playing = true;
-        m_connection = Glib::signal_timeout().connect(sigc::mem_fun(*this, &gv::GifView::on_timeout), m_delay);
+        m_connection = Glib::signal_timeout().connect(sigc::mem_fun(*this, &mv::GifView::on_timeout), m_delay);
     }
 }
 
@@ -97,7 +96,7 @@ void gv::GifView::start()
 * \brief Stop the GIF
 * \details This function stops the GIF.
 */
-void gv::GifView::stop()
+void mv::GifView::stop()
 {
     if (m_playing && m_loaded)
     {
@@ -112,14 +111,13 @@ void gv::GifView::stop()
 * \param cr The Cairo context.
 * \return Whether the GIF was drawn.
 */
-bool gv::GifView::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
+bool mv::GifView::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
 {
     Gtk::Allocation allocation = get_allocation();
     int width = allocation.get_width();
     int height = allocation.get_height();
     if(m_pixbuf)
     {
-        
         Gdk::Cairo::set_source_pixbuf(cr, m_pixbuf, ((double)width - m_pixbuf->get_width()) / 2,
             ((double)height - m_pixbuf->get_height()) / 2);
         cr->stroke();
@@ -133,7 +131,7 @@ bool gv::GifView::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
 * \details This function is called when the timeout expires.
 * \return Whether the timeout should be called again.
 */
-bool gv::GifView::on_timeout()
+bool mv::GifView::on_timeout()
 {
     if (m_playing)
     {
@@ -142,7 +140,9 @@ bool gv::GifView::on_timeout()
             try 
             {
                 m_pixbuf = m_iter->get_pixbuf();
-            } catch(Glib::Error& e) {
+            } 
+            catch(Glib::Error& e) 
+            {
                 std::cerr << e.what() << std::endl;
             }
             m_delay = m_iter->get_delay_time();
@@ -172,7 +172,7 @@ bool gv::GifView::on_timeout()
 * \param height The height of the pixbuf.
 * \param preserve_aspect_ratio Whether to preserve the aspect ratio or not.
 */
-void gv::GifView::resize_pixbuf(int width, int height, bool preserve_aspect_ratio)
+void mv::GifView::resize_pixbuf(int width, int height, bool preserve_aspect_ratio)
 {
     m_pixbuf = m_pixbuf->scale_simple(width, height, Gdk::INTERP_BILINEAR);
 }
@@ -182,7 +182,7 @@ void gv::GifView::resize_pixbuf(int width, int height, bool preserve_aspect_rati
 * \details This function resizes the pixbuf to fit the widget.
 * \param preserve_aspect_ratio Whether to preserve the aspect ratio or not.
 */
-void gv::GifView::resize_pixbuf(bool preserve_aspect_ratio)
+void mv::GifView::resize_pixbuf(bool preserve_aspect_ratio)
 {
     Gtk::Allocation allocation = get_allocation();
     int width = allocation.get_width();
@@ -214,7 +214,7 @@ void gv::GifView::resize_pixbuf(bool preserve_aspect_ratio)
 * \details This function sets whether the pixbuf should be automatically resized to fit the widget.
 * \param resize Whether the pixbuf should be automatically resized to fit the widget.
 */
-void gv::GifView::setResizeAutomatically(bool resize)
+void mv::GifView::setResizeAutomatically(bool resize)
 {
     m_resize = resize;
 }
@@ -225,7 +225,7 @@ void gv::GifView::setResizeAutomatically(bool resize)
 * \param width The maximum width.
 * \param height The maximum height.
 */
-void gv::GifView::setMaxSize(int width, int height)
+void mv::GifView::setMaxSize(int width, int height)
 {
     m_max_width = width;
     m_max_height = height;
@@ -237,7 +237,7 @@ void gv::GifView::setMaxSize(int width, int height)
 * \param width The minimum width of the pixbuf.
 * \param height The minimum height of the pixbuf.
 */
-void gv::GifView::setMinSize(int width, int height)
+void mv::GifView::setMinSize(int width, int height)
 {
     set_size_request(width, height);
 }
@@ -247,7 +247,7 @@ void gv::GifView::setMinSize(int width, int height)
 * \details This function gets the delay of the animation.
 * \return The delay of the animation.
 */
-int gv::GifView::getDelay() const
+int mv::GifView::getDelay() const
 {
     return m_delay;
 }

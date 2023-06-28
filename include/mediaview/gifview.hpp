@@ -1,11 +1,16 @@
-#include "gdkmm/pixbufanimation.h"
+#ifndef GIFVIEW_HPP
+#define GIFVIEW_HPP
 #include <iostream>
 #include <gtkmm-3.0/gtkmm.h>
-namespace gv
+namespace mv
 {
     class GifView;
 }
-class gv::GifView : public Gtk::DrawingArea
+/**
+* \brief A widget that displays a GIF
+* \details This widget displays an animated GIF in a gtkmm3 application. It can be transparently resized, and the animation can be started and stopped.
+*/
+class mv::GifView : public Gtk::DrawingArea
 {
     public:
         // Constructors
@@ -37,7 +42,7 @@ class gv::GifView : public Gtk::DrawingArea
 
         // Getters
         int getDelay() const;
-    private:
+    protected:
         // Events that handle the Pixbuf
         bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr) override;
         bool on_timeout();
@@ -57,3 +62,4 @@ class gv::GifView : public Gtk::DrawingArea
         bool m_playing = false;
         sigc::connection m_connection;
 };
+#endif //GIFVIEW_HPP

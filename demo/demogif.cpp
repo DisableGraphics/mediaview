@@ -1,10 +1,10 @@
-#include <gifview/gifview.hpp>
+#include <mediaview/gifview.hpp>
 
 int main()
 {
     auto app = Gtk::Application::create();
     Gtk::Window win;
-    gv::GifView gifview;
+    mv::GifView gifview;
 
     gifview.setGif("demo.gif");
     gifview.start();
