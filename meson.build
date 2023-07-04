@@ -10,7 +10,8 @@ mpv_dep = [dependency('gstreamermm-1.0')]
 # Add source files
 src_gif = [
     'src/gifview.cpp',
-    'src/resizable-img.cpp'
+    'src/resizable-img.cpp',
+    'src/singledimensionresimg.cpp'
 ]
 
 # Add library
@@ -22,3 +23,4 @@ mediaview_dep = declare_dependency(link_with : lib_gif, include_directories : in
 # Demo executable
 demogif = executable('demogif', 'demo/demogif.cpp', dependencies : mediaview_dep)
 demoimg = executable('demoimg', 'demo/demoimg.cpp', dependencies : mediaview_dep)
+demosdresimg = executable('demosdresimg', 'demo/demosdresimg.cpp', dependencies : mediaview_dep)
