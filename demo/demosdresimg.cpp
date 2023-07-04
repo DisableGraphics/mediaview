@@ -4,7 +4,7 @@ int main()
 {
     auto app = Gtk::Application::create();
     Gtk::Window win;
-    mv::SingleDimentionResImg resimg;
+    mv::SingleDimensionResImg resimg;
 
     resimg.load_image("demo.jpg");
     resimg.set_resize_orientation(ResizeDir::HORIZONTAL);

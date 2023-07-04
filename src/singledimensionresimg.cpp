@@ -1,6 +1,6 @@
 #include <mediaview/singledimensionresimg.hpp>
 
-void mv::SingleDimentionResImg::resize_img(int width, int height)
+void mv::SingleDimensionResImg::resize_img(int width, int height)
 {
     if(width > 0 && height > 0)
     {
@@ -23,7 +23,7 @@ void mv::SingleDimentionResImg::resize_img(int width, int height)
     }
 }
 
-bool mv::SingleDimentionResImg::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
+bool mv::SingleDimensionResImg::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
 {
     if (!m_image)
         return false;
