@@ -20,9 +20,26 @@ enum ResizeDir
 class mv::SingleDimensionResImg : public ResImg
 {
     public:
+        /**
+        * \brief Constructor
+        * \details Default constructor
+        */
         SingleDimensionResImg() : ResImg() {}
+        /**
+        * \brief Constructor
+        * \details Constructs the object with a filename and a resize direction
+        */
         SingleDimensionResImg(const std::string &file, ResizeDir resdir) : ResImg(file), resdir(resdir) {}
+        /**
+        * \brief Constructor
+        * \details Constructs the object with a pixbuf and a resize direction
+        */
         SingleDimensionResImg(Glib::RefPtr<Gdk::Pixbuf> pixbuf, ResizeDir resdir) : ResImg(pixbuf), resdir(resdir) {}
+        /**
+        * \brief Constructor
+        * \details Copy constructor so std::vector doesn't complain
+        */
+        SingleDimensionResImg(const SingleDimensionResImg& other) : ResImg(other.m_image), resdir(other.resdir) {}
 
         virtual ~SingleDimensionResImg(){}
 
