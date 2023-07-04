@@ -15,6 +15,7 @@ class mv::GifView : public Gtk::DrawingArea
     public:
         // Constructors
         GifView();
+        GifView(const GifView &other);
         GifView(const std::string& filename);
         GifView(const Glib::RefPtr<Gdk::PixbufAnimation> animation);
 

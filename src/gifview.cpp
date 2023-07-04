@@ -12,6 +12,15 @@ mv::GifView::GifView()
 
 /**
 * \brief Construct a new GifView::GifView object
+* \details This is a copy constructor so std::vector doesn't complain
+*/
+mv::GifView::GifView(const GifView &other)
+{
+    setGif(other.m_animation);
+}
+
+/**
+* \brief Construct a new GifView::GifView object
 * \details This is a constructor for the GifView class that takes a filename.
 * \param filename The filename of the GIF to load.
 */

@@ -14,6 +14,7 @@ class mv::ResImg : public Gtk::DrawingArea
 {
     public:
         ResImg();
+        ResImg(const ResImg &other);
         ResImg(const std::string &path);
         ResImg(const Glib::RefPtr<Gdk::Pixbuf> image);
         virtual ~ResImg();

@@ -1,15 +1,25 @@
 #include <mediaview/resizable-img.hpp>
 #include <iostream>
 /**
-* \brief Construct a new ResImg::ResImg object
+* \brief Construct a new mv::ResImg object
 * \details This is the default constructor for the ResImg class.
 */
 mv::ResImg::ResImg()
 {
   
 }
+
 /**
-* \brief Construct a new ResImg::ResImg object
+* \brief Construct a new mv::ResImg object
+* \details This is a copy constructor so std::vector doesn't complain
+*/
+mv::ResImg::ResImg(const ResImg& other)
+{
+    aspect_ratio = other.aspect_ratio;
+    m_image = other.m_image;
+}
+/**
+* \brief Construct a new mv::ResImg object
 * \details This is a constructor for the ResImg class that takes a filename.
 * \param path The path of the image to load.
 */
@@ -18,7 +28,7 @@ mv::ResImg::ResImg(const std::string &path)
     load_image(path);
 }
 /**
-* \brief Construct a new ResImg::ResImg object
+* \brief Construct a new mv::ResImg object
 * \details This is a constructor for the ResImg class that takes a pixbuf.
 * \param image The pixbuf to load.
 */
@@ -59,7 +69,7 @@ void mv::ResImg::load_image(const std::string &path)
     }
 }
 /**
-* \brief Destructor for the ResImg::ResImg class.
+* \brief Destructor for the mv::ResImg class.
 */
 mv::ResImg::~ResImg()
 {
