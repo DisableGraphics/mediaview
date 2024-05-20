@@ -19,6 +19,7 @@ class mv::ResImg : public Gtk::DrawingArea
         ResImg(const Glib::RefPtr<Gdk::Pixbuf> image);
         virtual ~ResImg();
         void load_image(const std::string &path);
+        void load_image(const Glib::RefPtr<Gdk::Pixbuf> image);
         void set_keep_aspect_ratio(bool keep);
 
     protected:

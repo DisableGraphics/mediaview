@@ -68,6 +68,16 @@ void mv::ResImg::load_image(const std::string &path)
         std::cerr << "Error: " << ex.what() << std::endl;
     }
 }
+
+/**
+* \brief Load an image from a file
+* \details This function loads an image from a file and tries to create a pixbuf from it.
+* \param image A pixbuf with the image inside it.
+*/
+void mv::ResImg::load_image(const Glib::RefPtr<Gdk::Pixbuf> image)
+{
+    m_image = image;
+}
 /**
 * \brief Destructor for the mv::ResImg class.
 */
