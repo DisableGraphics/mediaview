@@ -19,6 +19,6 @@ lib_gif = library('mediaview', src_gif, include_directories : inc, dependencies 
 mediaview_dep = declare_dependency(link_with : lib_gif, include_directories : inc, dependencies : gtkmm_dep)
 
 # Demo executable
-demogif = executable('demogif', 'demo/demogif.cpp', dependencies : mediaview_dep)
-demoimg = executable('demoimg', 'demo/demoimg.cpp', dependencies : mediaview_dep)
-demosdresimg = executable('demosdresimg', 'demo/demosdresimg.cpp', dependencies : mediaview_dep)
+# demogif = executable('demogif', 'demo/demogif.cpp', dependencies : mediaview_dep)
+# demoimg = executable('demoimg', 'demo/demoimg.cpp', dependencies : mediaview_dep)
+# demosdresimg = executable('demosdresimg', 'demo/demosdresimg.cpp', dependencies : mediaview_dep)
