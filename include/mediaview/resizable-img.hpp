@@ -22,6 +22,8 @@ class mv::ResImg : public Gtk::DrawingArea
         void load_image(const Glib::RefPtr<Gdk::Pixbuf> image);
         void set_keep_aspect_ratio(bool keep);
 
+        Glib::RefPtr<Gdk::Pixbuf> get_pixbuf();
+
     protected:
         //Override default signal handler:
         bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr) override;

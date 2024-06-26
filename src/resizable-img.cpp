@@ -135,3 +135,7 @@ void mv::ResImg::resize_img(int width, int height)
             m_resized_image = m_image->scale_simple(width, height, Gdk::INTERP_BILINEAR);
     }
 }
+
+Glib::RefPtr<Gdk::Pixbuf> mv::ResImg::get_pixbuf() {
+    return m_image;
+}
