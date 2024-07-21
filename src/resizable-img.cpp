@@ -17,6 +17,7 @@ mv::ResImg::ResImg(const ResImg& other)
 {
     aspect_ratio = other.aspect_ratio;
     m_image = other.m_image;
+    queue_draw();
 }
 /**
 * \brief Construct a new mv::ResImg object
@@ -35,6 +36,7 @@ mv::ResImg::ResImg(const std::string &path)
 mv::ResImg::ResImg(const Glib::RefPtr<Gdk::Pixbuf> image)
 {
     m_image = image;
+    queue_draw();
 }
 /**
 * \brief Load an image from a file
