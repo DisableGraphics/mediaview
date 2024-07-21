@@ -43,30 +43,7 @@ mv::ResImg::ResImg(const Glib::RefPtr<Gdk::Pixbuf> image)
 */
 void mv::ResImg::load_image(const std::string &path)
 {
-    try
-    {
-        m_image = Gdk::Pixbuf::create_from_file(path);
-    }
-    catch(const Gio::ResourceError& ex)
-    {
-        std::cerr << "ResourceError: " << ex.what() << std::endl;
-    }
-    catch(const Gdk::PixbufError& ex)
-    {
-        std::cerr << "PixbufError: " << ex.what() << std::endl;
-    }
-    catch(const Glib::FileError& ex)
-    {
-        std::cerr << "FileError: " << ex.what() << std::endl;
-    }
-    catch(const Glib::Error& ex)
-    {
-        std::cerr << "Error: " << ex.what() << std::endl;
-    }
-    catch(const std::exception& ex)
-    {
-        std::cerr << "Error: " << ex.what() << std::endl;
-    }
+    load_image(Gdk::Pixbuf::create_from_file(path));
 }
 
 /**
@@ -77,6 +54,7 @@ void mv::ResImg::load_image(const std::string &path)
 void mv::ResImg::load_image(const Glib::RefPtr<Gdk::Pixbuf> image)
 {
     m_image = image;
+    queue_draw();
 }
 /**
 * \brief Destructor for the mv::ResImg class.
