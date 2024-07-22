@@ -21,6 +21,8 @@ class mv::ResImg : public Gtk::DrawingArea
         void load_image(const std::string &path);
         void load_image(const Glib::RefPtr<Gdk::Pixbuf> image);
         void set_keep_aspect_ratio(bool keep);
+        void set_zoom_level(double zoom);
+        void set_draw_displacement(double x, double y);
 
         Glib::RefPtr<Gdk::Pixbuf> get_pixbuf();
 
@@ -29,6 +31,8 @@ class mv::ResImg : public Gtk::DrawingArea
         bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr) override;
         void resize_img(int width, int height);
         bool aspect_ratio = true;
+        double zoom = 1.0;
+        double disp_x = 0, disp_y = 0;
 
         Glib::RefPtr<Gdk::Pixbuf> m_image;
         Glib::RefPtr<Gdk::Pixbuf> m_resized_image;

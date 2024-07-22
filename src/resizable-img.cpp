@@ -86,7 +86,7 @@ bool mv::ResImg::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
     if(width > 0 && height > 0)
     {
         Gdk::Cairo::set_source_pixbuf(cr, m_resized_image,
-            (width - m_resized_image->get_width())/2, (height - m_resized_image->get_height())/2);
+            ((width + disp_x) - m_resized_image->get_width())/2, ((height + disp_y) - m_resized_image->get_height())/2);
         cr->paint();
     }
 
@@ -111,11 +111,16 @@ void mv::ResImg::resize_img(int width, int height)
                 height = width / aspect_ratio;
             }
         }
-        if(width > 0 && height > 0)
-            m_resized_image = m_image->scale_simple(width, height, Gdk::INTERP_BILINEAR);
+        if(width > 0 && height > 0){
+            m_resized_image = m_image->scale_simple(width*zoom, height*zoom, Gdk::INTERP_BILINEAR);
+        }
     }
 }
 
 Glib::RefPtr<Gdk::Pixbuf> mv::ResImg::get_pixbuf() {
     return m_image;
+}
+
+void mv::ResImg::set_zoom_level(double zoom) {
+    this->zoom = zoom;
 }
