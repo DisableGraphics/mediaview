@@ -48,8 +48,8 @@ executable('your_executable', 'your_executable.cpp', dependencies: mediaview_dep
 #include <mediaview/mediaview.hpp>
 ```
 ## Using the library
-* This is an very basic example:
-```
+* GIF Example:
+```cpp
 #include <gtkmm.h>
 #include <mediaview/mediaview.hpp>
 
