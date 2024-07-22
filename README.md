@@ -19,7 +19,7 @@ sudo dnf install gtkmm30-devel
 ```
 # Compiling the library
 ```
-git clone https://github.com/DisableGraphics/GifView.git mediaview
+git clone https://github.com/DisableGraphics/mediaview.git mediaview
 cd mediaview
 meson setup builddir
 cd builddir
