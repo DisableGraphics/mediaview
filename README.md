@@ -19,8 +19,8 @@ sudo dnf install gtkmm30-devel
 ```
 # Compiling the library
 ```
-git clone https://github.com/DisableGraphics/GifView.git
-cd GifView
+git clone https://github.com/DisableGraphics/GifView.git mediaview
+cd mediaview
 meson setup builddir
 cd builddir
 meson compile # You can change it for "ninja" if your meson doesn't have the compile command
